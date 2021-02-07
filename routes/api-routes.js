@@ -13,7 +13,7 @@ module.exports = function (app) {
       });
   });
   app.post("/api/workouts", (req, res) => {
-    Workout.create({ req.body })
+    Workout.create({})
       .then((data) => {
         res.json(data);
       })
@@ -22,5 +22,15 @@ module.exports = function (app) {
         res.json(404);
       });
   });
-  
+  app.put("/api/workout/:id", (req, res) => {
+    Workout.findOneAndUpdate({ id })
+      .then((data) => {
+        res.json(data);
+        console.log("🚀 ~ file: api-routes.js ~ line 29 ~ .then ~ data", data)
+      })
+      .catch((err) => {
+        console.log(err);
+        res.json(404);
+      });
+  });
 };
