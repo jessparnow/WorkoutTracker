@@ -16,7 +16,7 @@ const db = require("./models");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static("public"));
 
 mongoose.connect(
   process.env.MONGODB_URI || 'mongodb://localhost/workout',
@@ -28,7 +28,7 @@ mongoose.connect(
   }
 );
 // Requiring our routes
-// require("./routes/html-routes.js")(app);
+require("./routes/html-routes.js")(app);
 // require("./routes/api-routes.js")(app);
 
 // Syncing our database and logging a message to the user upon success
