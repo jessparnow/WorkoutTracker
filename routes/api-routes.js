@@ -6,13 +6,14 @@ module.exports = function (app) {
     Workout.find({})
       .then((data) => {
         res.json(data);
+        console.log("🚀 ~ file: api-routes.js ~ line 9 ~ .then ~ data", data);
       })
       .catch((err) => {
         console.log(err);
         res.json(404);
       });
   });
-  app.post("/api/workouts", (req, res) => {
+  app.post("/api/workouts/", (req, res) => {
     Workout.create({})
       .then((data) => {
         res.json(data);
@@ -22,11 +23,16 @@ module.exports = function (app) {
         res.json(404);
       });
   });
-  app.put("/api/workout/:id", (req, res) => {
-    Workout.findOneAndUpdate({ id })
+  app.put("/api/workouts/:id", (req, res) => {
+    const id = req.params.id;
+    const workout = req.body;
+    Workout.findOneAndUpdate(
+      id,
+      { $set: { exercises: workout } },
+      { new: true }
+    )
       .then((data) => {
         res.json(data);
-        console.log("🚀 ~ file: api-routes.js ~ line 29 ~ .then ~ data", data)
       })
       .catch((err) => {
         console.log(err);
